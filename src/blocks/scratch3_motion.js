@@ -17,6 +17,7 @@ class Scratch3MotionBlocks {
      */
     getPrimitives () {
         return {
+            motion_setheading:this.setHeading,
             motion_movesteps: this.moveSteps,
             motion_gotoxy: this.goToXY,
             motion_goto: this.goTo,
@@ -59,6 +60,13 @@ class Scratch3MotionBlocks {
                 getId: targetId => `${targetId}_direction`
             }
         };
+    }
+    setHeading(args, util) {
+        const steps = Cast.toNumber(args.ANGLE);
+        const radians = MathUtil.degToRad(90 - util.target.direction);
+        const dx = steps * Math.cos(radians);
+        const dy = steps * Math.sin(radians);
+        util.target.setXY(util.target.x + dx, util.target.y + dy);
     }
 
     moveSteps (args, util) {
